@@ -132,7 +132,7 @@
                 type="text"
                 class="form-control"
                 id="exampleInpuInfo"
-                value="{{ team.info }}"
+                value="{{ user.info }}"
                 name="info"
               />
             </div>
@@ -153,6 +153,16 @@
               />
             </div>
 
+            <button
+            type="submit"
+            class="btn btn-lg bg-main-color text-white d-block tex mx-auto rounded-3 mb-2"
+          >
+            Сохранить
+          </button>
+          </form>
+
+          Создание анкеты пользователя
+          <form class="mt-5" action="/api/createuserad" method="POST">
             <div class="mb-3 w-75 mx-auto">
               <label
                 for="exampleInputDirection"
@@ -201,27 +211,6 @@
               />
             </div>
 
-            <div class="form-check mb-3 w-75 mx-auto">
-              <label
-                class="form-check-label text-main-color"
-                for="flexCheck"
-                style="font-size: 1.8rem"
-                >Ищите ли команду</label
-              >
-              <input
-                class="form-check-input"
-                name="seek"
-                type="checkbox"
-                id="flexCheck"
-                {%
-                if
-                ad
-                %}checked{%
-                endif
-                %}
-              />
-            </div>
-
             <button
               type="submit"
               class="btn btn-lg bg-main-color text-white d-block tex mx-auto rounded-3 mb-2"
@@ -229,6 +218,12 @@
               Сохранить
             </button>
           </form>
+
+          Удалить анкету
+          <form action="/api/deleteuserad" method="post">
+            <input type="submit" value="Удалить">
+          </form>
+
         </div>
 
         <!-- уведомления -->

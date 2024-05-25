@@ -138,6 +138,16 @@
               />
             </div>
 
+              <button
+              type="submit"
+              class="btn btn-lg bg-main-color text-white d-block tex mx-auto rounded-3 mb-2"
+            >
+              Сохранить
+            </button>
+          </form>
+
+          Создание анкеты команды
+          <form action="/api/createteamad" method="post">
             <div class="mb-5 w-75 mx-auto">
               <label
                 for="exampleInputDirection"
@@ -185,35 +195,14 @@
                 name="skills"
               />
             </div>
+            <input type="submit" value="сохранить">
+            </form>
 
-            <div class="form-check mb-5 w-75 mx-auto">
-              <label
-                class="form-check-label text-main-color"
-                for="flexCheck"
-                style="font-size: 1.8rem"
-                >Ищите ли сокомандников</label
-              >
-              <input
-                class="form-check-input"
-                name="seek"
-                type="checkbox"
-                id="flexCheck"
-                {%
-                if
-                ad
-                %}checked{%
-                endif
-                %}
-              />
-            </div>
+            Удалить анкету команды
+            <form action="/api/deleteteamad" method="post">
+              <input type="submit" value="Удалить">
+            </form>
 
-            <button
-              type="submit"
-              class="btn btn-lg bg-main-color text-white d-block tex mx-auto rounded-3 mb-2"
-            >
-              Сохранить
-            </button>
-          </form>
         </div>
 
         <div class="row justify-content-around">
