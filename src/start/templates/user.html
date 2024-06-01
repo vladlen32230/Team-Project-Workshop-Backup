@@ -7,7 +7,7 @@
     <title>Профиль пользователя</title>
   </head>
   <body>
-    <header class="container-fluid bg-main-color fw-">
+    <header class="container-fluid bg-main-color">
       <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
           <a class="navbar-brand text-white" href="/">Team Project Workshop</a>
@@ -29,46 +29,6 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link text-white" href="/seekers/">Сокомандники</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link text-white dropdown-toggle"
-                  href="#"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Профиль
-                </a>
-                <ul class="dropdown-menu border-main-color">
-                  <li>
-                    <a class="dropdown-item text-main-color" href="/user">Профиль пользователя</a>
-                  </li>
-                  <li><hr class="dropdown-divider text-main-color" /></li>
-                  <li>
-                    <a class="dropdown-item text-main-color" href="/team">Профиль команды</a>
-                  </li>
-                </ul>
-              </li>
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link text-white dropdown-toggle"
-                  href="#"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Авторизация
-                </a>
-                <ul class="dropdown-menu border-main-color">
-                  <li><a class="dropdown-item text-main-color" href="/login/">Вход</a></li>
-                  <li><hr class="dropdown-divider text-main-color" /></li>
-                  <li>
-                    <a class="dropdown-item text-main-color" href="/registeraccount/"
-                      >Регистрация</a
-                    >
-                  </li>
-                </ul>
               </li>
             </ul>
           </div>
@@ -117,17 +77,20 @@
 
         <div class="row mb-5">
           <form class="mt-5" action="/api/changeuserinfo" method="POST">
-            <h3 class="text-center m-5 text-main-color" style="font-size: 2rem">
+            {% if owner %}
+            <h3 class="text-center m-5 text-main-color fw-bold" style="font-size: 2rem">
               Редактирование профиля пользователя
             </h3>
+            {% endif %}
 
             <div class="mb-3 w-75 mx-auto">
               <label
                 for="exampleInpuInfo"
-                class="form-label text-main-color"
+                class="form-label text-main-color fw-bold"
                 style="font-size: 1.8rem"
                 >Информация о пользователе</label
               >
+              {% if owner %}
               <input
                 type="text"
                 class="form-control"
@@ -135,15 +98,19 @@
                 value="{{ user.info }}"
                 name="info"
               />
+              {% else %}
+              <p class="text-main-color">{{ user.info }}</p>
+              {% endif %}
             </div>
 
             <div class="mb-3 w-75 mx-auto">
               <label
                 for="exampleInpuContacts"
-                class="form-label text-main-color"
+                class="form-label text-main-color fw-bold"
                 style="font-size: 1.8rem"
                 >Контакты</label
               >
+              {% if owner %}
               <input
                 type="text"
                 class="form-control"
@@ -151,25 +118,39 @@
                 value="{{ user.contacts }}"
                 name="contacts"
               />
+              {% else %}
+              <p class="text-main-color">{{ user.contacts }}</p>
+              {% endif %}
             </div>
 
+            {% if owner %}
             <button
-            type="submit"
-            class="btn btn-lg bg-main-color text-white d-block tex mx-auto rounded-3 mb-2"
-          >
-            Сохранить
-          </button>
+              type="submit"
+              class="btn btn-lg btn-main-color text-white d-block tex mx-auto rounded-3 mb-2"
+            >
+              Сохранить
+            </button>
+            {% endif %}
           </form>
 
-          Создание анкеты пользователя
-          <form class="mt-5" action="/api/createuserad" method="POST">
+          <form class="mt-5 mb-3" action="/api/createuserad" method="POST">
+            {% if owner %}
+            <h3 class="text-center m-5 text-main-color fw-bold" style="font-size: 2rem">
+              Создание анкеты пользователя
+            </h3>
+            {% else %}
+            <h3 class="text-center m-5 text-main-color fw-bold" style="font-size: 2rem">
+              Анкета пользователя
+            </h3>
+            {% endif %}
             <div class="mb-3 w-75 mx-auto">
               <label
                 for="exampleInputDirection"
-                class="form-label text-main-color"
+                class="form-label text-main-color fw-bold"
                 style="font-size: 1.8rem"
                 >В каком направлении хотите развиваться</label
               >
+              {% if owner %}
               <input
                 type="text"
                 class="form-control"
@@ -177,15 +158,19 @@
                 value="{% if ad %}{{ ad.project }}{% endif %}"
                 name="project"
               />
+              {% else %}
+              <p class="text-main-color">{% if ad %}{{ ad.project }}{% endif %}</p>
+              {% endif %}
             </div>
 
             <div class="mb-3 w-75 mx-auto">
               <label
                 for="exampleInputRole"
-                class="form-label text-main-color"
+                class="form-label text-main-color fw-bold"
                 style="font-size: 1.8rem"
                 >Кем хотите быть</label
               >
+              {% if owner %}
               <input
                 type="text"
                 class="form-control"
@@ -193,15 +178,19 @@
                 name="role"
                 value="{% if ad %}{{ ad.role }}{% endif %}"
               />
+              {% else %}
+              <p class="text-main-color">{% if ad %}{{ ad.role }}{% endif %}</p>
+              {% endif %}
             </div>
 
             <div class="mb-3 w-75 mx-auto">
               <label
                 for="exampleInputSkills"
-                class="form-label text-main-color"
+                class="form-label text-main-color fw-bold"
                 style="font-size: 1.8rem"
                 >Ваши навыки</label
               >
+              {% if owner %}
               <input
                 type="text"
                 class="form-control"
@@ -209,25 +198,36 @@
                 value="{% if ad %}{{ ad.skills }}{% endif %}"
                 name="skills"
               />
+              {% else %}
+              <p class="text-main-color">{% if ad %}{{ ad.skills }}{% endif %}</p>
+              {% endif %}
             </div>
 
+            {% if owner %}
             <button
               type="submit"
-              class="btn btn-lg bg-main-color text-white d-block tex mx-auto rounded-3 mb-2"
+              class="btn btn-lg btn-main-color text-white d-block tex mx-auto rounded-3 mb-2"
             >
               Сохранить
             </button>
+            {% endif %}
           </form>
 
-          Удалить анкету
+          {% if owner %}
           <form action="/api/deleteuserad" method="post">
-            <input type="submit" value="Удалить">
+            <h3 class="text-center m-5 text-main-color" style="font-size: 2rem">Удалить анкету</h3>
+            <input
+              class="btn btn-lg btn-main-color text-white d-block tex mx-auto rounded-3 mb-2"
+              type="submit"
+              value="Удалить"
+            />
           </form>
-
+          {% endif %}
         </div>
 
+        {% if owner %}
         <!-- уведомления -->
-        <div class="row justify-content-center">
+        <div class="row justify-content-center mb-4">
           <div class="col-12 mb-3">
             <h3 class="text-center text-main-color">Уведомления</h3>
           </div>
@@ -280,26 +280,9 @@
             {% endfor %}
           </div>
         </div>
+        {% endif %}
       </div>
     </main>
-
-    <footer
-      class="container-fluid bg-main-color d-flex flex-wrap justify-content-between align-items-center py-3 mt-4 sticky-bottom"
-    >
-      <p class="col-md-4 mb-0 text-white">&copy; Website production</p>
-
-      <ul class="nav col-md-4 justify-content-end">
-        <li class="nav-item">
-          <a href="#" class="nav-link px-2 text-white">Главная</a>
-        </li>
-        <li class="nav-item">
-          <a href="/seekteam/" class="nav-link px-2 text-white">Команды</a>
-        </li>
-        <li class="nav-item">
-          <a href="/seekers/" class="nav-link px-2 text-white">Сокомандники</a>
-        </li>
-      </ul>
-    </footer>
 
     <script type="module" src="/static/js/main.js"></script>
   </body>

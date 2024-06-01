@@ -10,8 +10,10 @@ def team(req, name):
 
     context['members'] = members
     context['owner'] = req.user.is_authenticated and req.user.name == team.owner.name
+    context['isMember'] = req.user.is_authenticated and req.user.name in members
     context['team'] = team
     context['ad'] = ad
+    context['canRequest'] = req.user.is_authenticated and not TeamMembership.objects.filter(user=req.user).exists()
 
     return render(req, 'team.html', context)
 
@@ -19,11 +21,11 @@ def user(req, name):
     context = {}
 
     user = User.objects.get(name=name)
-    team = TeamMembership.objects.filter(user=user).first()
+    teamMembership = TeamMembership.objects.filter(user=user).first()
     ad = UserAd.objects.filter(user=user).first()
 
     context['user'] = user
-    context['team'] = team.team if team else None
+    context['team'] = teamMembership.team if teamMembership else None
     context['ad'] = ad
     context['owner'] = req.user.is_authenticated and req.user.name == user.name
 
